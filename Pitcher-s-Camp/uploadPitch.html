@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitcher Video Upload</title>
+    <link rel="stylesheet" href="uploadPitch.css">
+</head>
+<body>
+    <header class="main-header">
+        <nav class="navbar">
+            <ul>
+                <li><a href="homePitch.html">Home</a></li>
+                <li><a href="#messages">Messages</a></li>
+                <li><a href="#pitch">Upload Pitch</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Pitcher Video Upload</h1>
+        
+        <div class="upload-section">
+            <h2>Upload Your Video</h2>
+            <label for="video-upload" class="file-upload">
+                <p>Click your video file here</p>
+                <p>Supported formats: MP4, MOV, AVI</p>
+                <input type="file" id="video-upload" accept="video/*">
+            </label>
+        </div>
+
+        <div class="upload-section">
+            <h2>Upload Your Image</h2>
+            <label for="image-upload" class="file-upload">
+                <p>Click your image file here</p>
+                <p>Supported formats: JPG, PNG, GIF</p>
+                <input type="file" id="image-upload" accept="image/*">
+            </label>
+        </div>
+
+        <div class="upload-section">
+            <h2>Start-Up Description</h2>
+            <textarea id="startUpDescription" placeholder="Describe your pitching style, velocity, preferred pitches, and any other relevant information"></textarea>
+            <h2>Your Ask</h2>
+            <textarea id="yourAsk" placeholder="Enter your ask for investment, how much you are looking for, and any other relevant information"></textarea>
+            <h2>Equity You offer</h2>
+            <input type="number" id="equityOffer">
+        </div>
+
+        <button id="submitBtn">Submit</button>
+    </div>
+
+    <script src="uploadPitch.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "name": "pro1",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [
+    "adi"
+  ],
+  "homepage": "https://github.com/Mandalorian7773/Pitcher-s-Camp#readme",
+  "bugs": {
+    "url": "https://github.com/Mandalorian7773/Pitcher-s-Camp/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mandalorian7773/Pitcher-s-Camp.git"
+  },
+  "license": "ISC",
+  "author": "aditya",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

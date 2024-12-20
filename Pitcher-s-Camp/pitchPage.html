@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitch Details</title>
+    <link rel="stylesheet" href="pitchPage.css">
+</head>
+<body>
+    <header class="main-header">
+        <nav class="navbar">
+            <ul>
+                <li><a href="homeINV.html">Back to Home</a></li>
+                <li><a href="#messages">Messages</a></li>
+                <li><a href="#profile">Profile</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div id="pitchDetails">
+            <h2>Pitch Details</h2>
+            <div id="pitchBox">
+                <img id="pitchImage" alt="Pitcher Image">
+                <div id="pitchInfo">
+                    <p id="pitchDescription"></p>
+                    <p id="pitchAsk"></p>
+                    <p id="pitchEquity"></p>
+                    <video id="pitchVideo" controls>
+                        <source id="videoSource" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getDatabase, ref as dbRef, get } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+
+        const firebaseConfig = {
+          apiKey: "YOUR_API_KEY",
+          authDomain: "YOUR_AUTH_DOMAIN",
+          databaseURL: "YOUR_DATABASE_URL",
+          projectId: "YOUR_PROJECT_ID",
+          storageBucket: "YOUR_STORAGE_BUCKET",
+          messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+          appId: "YOUR_APP_ID",
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        window.onload = function() {
+            const selectedPitch = JSON.parse(localStorage.getItem('selectedPitch'));
+
+            if (selectedPitch) {
+                document.getElementById('pitchImage').src = selectedPitch.imageUrl;
+                document.getElementById('pitchDescription').textContent = "Description: " + selectedPitch.description;
+                document.getElementById('pitchAsk').textContent = "Ask: " + selectedPitch.ask;
+                document.getElementById('pitchEquity').textContent = "Equity: " + selectedPitch.equity;
+                document.getElementById('videoSource').src = selectedPitch.videoUrl;
+                document.getElementById('pitchVideo').load();
+            } else {
+                alert("No pitch data found!");
+            }
+        }
+    </script>
+</body>
+</html>
