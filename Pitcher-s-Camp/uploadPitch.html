@@ -3,54 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pitcher Video Upload</title>
+    <title>Upload Pitch</title>
     <link rel="stylesheet" href="uploadPitch.css">
 </head>
 <body>
-    <header class="main-header">
-        <nav class="navbar">
-            <ul>
-                <li><a href="homePitch.html">Home</a></li>
-                <li><a href="#messages">Messages</a></li>
-                <li><a href="#pitch">Upload Pitch</a></li>
-                <li><a href="#about">About</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <div class="container">
-        <h1>Pitcher Video Upload</h1>
-        
-        <div class="upload-section">
-            <h2>Upload Your Video</h2>
-            <label for="video-upload" class="file-upload">
-                <p>Click your video file here</p>
-                <p>Supported formats: MP4, MOV, AVI</p>
-                <input type="file" id="video-upload" accept="video/*">
-            </label>
+    <h2>Upload Your Pitch</h2>
+    <form id="pitchForm">
+        <div>
+            <label for="image-upload">Upload Image:</label>
+            <input type="text" id="image-upload" accept="image/*">
         </div>
-
-        <div class="upload-section">
-            <h2>Upload Your Image</h2>
-            <label for="image-upload" class="file-upload">
-                <p>Click your image file here</p>
-                <p>Supported formats: JPG, PNG, GIF</p>
-                <input type="file" id="image-upload" accept="image/*">
-            </label>
+        <div>
+            <label for="startUpDescription">Pitch Description:</label>
+            <textarea id="startUpDescription" rows="4" cols="50"></textarea>
         </div>
-
-        <div class="upload-section">
-            <h2>Start-Up Description</h2>
-            <textarea id="startUpDescription" placeholder="Describe your pitching style, velocity, preferred pitches, and any other relevant information"></textarea>
-            <h2>Your Ask</h2>
-            <textarea id="yourAsk" placeholder="Enter your ask for investment, how much you are looking for, and any other relevant information"></textarea>
-            <h2>Equity You offer</h2>
-            <input type="number" id="equityOffer">
+        <div>
+            <label for="yourAsk">Your Ask (Amount):</label>
+            <input type="text" id="yourAsk">
         </div>
+        <div>
+            <label for="equityOffer">Equity Offer (%):</label>
+            <input type="text" id="equityOffer">
+        </div>
+        <button type="button" id="submitBtn">Submit Pitch</button>
+    </form>
 
-        <button id="submitBtn">Submit</button>
-    </div>
+    <script>
+        document.getElementById('submitBtn').addEventListener('click', () => {
+            const description = document.getElementById('startUpDescription').value;
+            const ask = document.getElementById('yourAsk').value;
+            const equity = document.getElementById('equityOffer').value;
+            const imageUpload = document.getElementById('image-upload').value;
 
-    <script src="uploadPitch.js"></script>
+            const newPitch = {
+                description: description,
+                ask: ask,
+                equity: equity,
+                imageUrl: imageUpload
+            };
+
+            const pitches = JSON.parse(localStorage.getItem('pitches')) || [];
+            pitches.push(newPitch);
+            localStorage.setItem('pitches', JSON.stringify(pitches));
+
+            document.getElementById('pitchForm').reset();
+            alert("Pitch submitted successfully!");
+        });
+    </script>
 </body>
 </html>

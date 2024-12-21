@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitch Details</title>
+    <link rel="stylesheet" href="pitchDetails.css">
+</head>
+<body>
+    <div class="pitch-details-container">
+        <div id="pitchImage">
+            <img id="pitchImageTag" src="" alt="Pitch Image" />
+        </div>
+        <div id="pitchDetails">
+            <h2 id="description"></h2>
+            <p><strong>Your Ask:</strong> <span id="ask"></span></p>
+            <p><strong>Equity Offered:</strong> <span id="equity"></span></p>
+        </div>
+    </div>
+
+    <script>
+        const selectedPitch = JSON.parse(localStorage.getItem('selectedPitch'));
+
+        if (selectedPitch) {
+            document.getElementById("pitchImageTag").src = selectedPitch.imageUrl;
+            document.getElementById("description").textContent = selectedPitch.description;
+            document.getElementById("ask").textContent = selectedPitch.ask;
+            document.getElementById("equity").textContent = `${selectedPitch.equity}%`;
+        } else {
+            alert("Pitch details not found!");
+        }
+    </script>
+</body>
+</html>

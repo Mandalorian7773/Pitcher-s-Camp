@@ -3,77 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pitch Data Page</title>
+    <title>Home Investment Pitches</title>
     <link rel="stylesheet" href="homeINV.css">
 </head>
 <body>
-    <header class="main-header">
-        <nav class="navbar">
+    <div class="main-header">
+        <div class="navbar">
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#messages">Messages</a></li>
-                <li><a href="#profile">Profile</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="homePitch">Pitcher</a></li>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
             </ul>
-        </nav>
-    </header>
+        </div>
+    </div>
 
     <div class="container">
         <div class="pitch-row" id="pitchRow"></div>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        import { getDatabase, ref as dbRef, get } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
-
-        const firebaseConfig = {
-          apiKey: "YOUR_API_KEY",
-          authDomain: "YOUR_AUTH_DOMAIN",
-          databaseURL: "YOUR_DATABASE_URL",
-          projectId: "YOUR_PROJECT_ID",
-          storageBucket: "YOUR_STORAGE_BUCKET",
-          messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-          appId: "YOUR_APP_ID",
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-
-        function displayPitchBoxes() {
+    <script>
+        function displayPitches() {
             const pitchRow = document.getElementById('pitchRow');
-            const pitchesRef = dbRef(database, 'pitches');
+            const pitchesData = JSON.parse(localStorage.getItem('pitches'));
 
-            get(pitchesRef).then((snapshot) => {
-                if (snapshot.exists()) {
-                    const pitches = snapshot.val();
-                    for (const pitchId in pitches) {
-                        const pitch = pitches[pitchId];
-
-                        const pitchBox = document.createElement('div');
-                        pitchBox.classList.add('pitch-box');
-
-                        const img = document.createElement('img');
-                        img.src = pitch.imageUrl;
-                        img.alt = 'Pitcher image';
-
-                        const p = document.createElement('p');
-                        p.textContent = pitch.description;
-
-                        pitchBox.appendChild(img);
-                        pitchBox.appendChild(p);
-                        pitchRow.appendChild(pitchBox);
-
-                        pitchBox.addEventListener('click', () => {
-                            localStorage.setItem('selectedPitch', JSON.stringify(pitch));
-                            window.location.href = 'pitchPage.html'; // Redirect to the detailed pitch page
-                        });
-                    }
-                }
-            });
+            if (pitchesData && pitchesData.length > 0) {
+                pitchesData.forEach((pitch) => {
+                    const pitchBox = document.createElement('div');
+                    pitchBox.classList.add('pitch-box');
+                    const img = document.createElement('img');
+                    img.src = pitch.imageUrl;
+                    img.alt = 'Pitch image';
+                    pitchBox.appendChild(img);
+                    const description = document.createElement('p');
+                    description.textContent = pitch.description;
+                    pitchBox.appendChild(description);
+                    pitchRow.appendChild(pitchBox);
+                    pitchBox.addEventListener('click', () => {
+                        localStorage.setItem('selectedPitch', JSON.stringify(pitch));
+                        window.location.href = 'pitchDetails.html';
+                    });
+                });
+            } else {
+                console.log('No pitch data found.');
+                pitchRow.innerHTML = '<p>No pitches available at the moment.</p>';
+            }
         }
 
-        displayPitchBoxes();
+        displayPitches();
     </script>
 </body>
 </html>
